@@ -8,11 +8,7 @@ object test extends RapBattle{
 		name = "Snoop Dog";
 	}
 	def main(args: Array[String]): Unit = {
-		SNOOPDOG YO
-
-		I GOT 5 STACKS
-
-		I GOT THE KEYS KEYS KEYS
+		SNOOPDOG YO I GOT THE KEYS KEYS KEYS AND I GOT 5 STACKS 
 
 		SPIT STRING "Should be 135"
 

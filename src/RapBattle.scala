@@ -29,17 +29,26 @@ class RapBattle{
 
     //TODO add ConjunctionClass Return types for these functions
     class MathFunctionBuilder{
+        def ConjunctionClass:StartSentenceClass = {
+            new StartSentenceClass
+        }
+        // def KEYS(c: ConjunctionClass):StartSentenceClass = {
+        //     new StartSentenceClass
+        // }
     	def KEYS:MathFunctionBuilder = {currentRapper.value = currentRapper.value * 3; this}
     	def ONE:MathFunctionBuilder = {currentRapper.value= currentRapper.value + 1; this}
     	def apply(a:KeysClass):MathFunctionBuilder = {currentRapper.value = currentRapper.value * 3; this}
     	def apply(o:OneClass):MathFunctionBuilder = {currentRapper.value = currentRapper.value + 1; this}
+        def apply(c:ConjunctionClass):StartSentenceClass = {
+            new StartSentenceClass
+        }
     }
 
     class Builder{
-        def apply(s:StacksClass):ConjunctionClass = {
-            new ConjunctionClass
+        def STACKS(c:ConjunctionClass) = {
+            new StartSentenceClass
         }
-    
+	    
         def STACKS:Unit = {}
 
         def THE:TheClass = {
@@ -55,9 +64,9 @@ class RapBattle{
         def apply(g: GotClass):Builder = {
             new Builder;
         }
-		def GOT:Builder = {
-			new Builder
-		}
+        def GOT(t: TheClass):TheClass = {
+            new TheClass
+        }
         def GOT(i: Int):Builder = {
             currentRapper.value = i * currentRapper.value;
             new Builder;
@@ -81,7 +90,7 @@ class RapBattle{
     object SPIT extends SpitClass{}
     object STACKS extends StacksClass{}
     object MIL extends MilClass{}
-    object AND extends AndClass{}
+    object AND extends ConjunctionClass{}
     object GOT extends GotClass{}
 
     class AndClass {}
@@ -109,10 +118,10 @@ class RapBattle{
     class StacksClass{}
 
     class StartSentenceClass {
-        def apply(i: IClass):IClass = {
+        def apply(i: IClass):IClass = { // STACKS
             new IClass
         }
-        def I:IClass = {
+        def I:IClass = { // YO
             new IClass
         }
         def apply(s:SpitClass):SpitClass = {
