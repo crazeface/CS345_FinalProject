@@ -26,7 +26,13 @@ object test extends RapBattle{
 
 		ANOTHER ONE ONE ONE
 
+		SPIT FIRE
+
 		SPIT STRING "Should be 6"
+
+		I GOT 7 STACKS
+
+		SPIT STRING "Should be 42"
 
 		SPIT FIRE
 	}
