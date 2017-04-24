@@ -26,6 +26,8 @@ class RapBattle{
 	// 	def apply(i:IClass):IClass = i
 	// }
 
+
+    //TODO add ConjunctionClass Return types for these functions
     class MathFunctionBuilder{
     	def KEYS:MathFunctionBuilder = {currentRapper.value = currentRapper.value * 3; this}
     	def ONE:MathFunctionBuilder = {currentRapper.value= currentRapper.value + 1; this}
@@ -34,7 +36,15 @@ class RapBattle{
     }
 
     class Builder{
+        def apply(s:StacksClass):ConjunctionClass = {
+            new ConjunctionClass
+        }
+    
         def STACKS:Unit = {}
+
+        def THE:TheClass = {
+            new TheClass
+        }
     	def apply(g: TheClass):TheClass = g;
         def apply(m: MilClass):MilClass = m;
     }
@@ -42,6 +52,9 @@ class RapBattle{
     class TheClass extends MathFunctionBuilder{}
 
 	class IClass{
+        def apply(g: GotClass):Builder = {
+            new Builder;
+        }
 		def GOT:Builder = {
 			new Builder
 		}
@@ -69,10 +82,12 @@ class RapBattle{
     object STACKS extends StacksClass{}
     object MIL extends MilClass{}
     object AND extends AndClass{}
+    object GOT extends GotClass{}
 
-    class AndClass{
-        
-    }
+    class AndClass {}
+    class GotClass {}
+
+
     class MilClass{
         currentRapper.value = currentRapper.value/2;
     }
@@ -91,17 +106,39 @@ class RapBattle{
 
     class KeysClass{}
 
-    class StacksClass{
-        
+    class StacksClass{}
+
+    class StartSentenceClass {
+        def apply(i: IClass):IClass = {
+            new IClass
+        }
+        def I:IClass = {
+            new IClass
+        }
+        def apply(s:SpitClass):SpitClass = {
+            new SpitClass
+        }
+        def apply(h:HalfClass):HalfClass = {
+            new HalfClass
+        }
+
     }
+
+    class ConjunctionClass {
+        def apply(a:AndClass):StartSentenceClass = {
+            new StartSentenceClass
+        }
+    }
+
 
     class Rapper{
     	var name = "";
     	var value = 1;
         var conditional = false;
 
-    	def YO:Unit = {
+    	def YO:StartSentenceClass = {
     		currentRapper = this;
+            new StartSentenceClass
     	}
 
     }
