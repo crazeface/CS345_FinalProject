@@ -36,9 +36,11 @@ class RapBattle{
         //     new StartSentenceClass
         // }
     	def KEYS:MathFunctionBuilder = {currentRapper.value = currentRapper.value * 3; this}
-    	def ONE:MathFunctionBuilder = {currentRapper.value= currentRapper.value + 1; this}
+    	def ONE:MathFunctionBuilder = {currentRapper.value = currentRapper.value + 1; this}
+        def NEG:MathFunctionBuilder = {currentRapper.value = currentRapper.value - 1; this}
     	def apply(a:KeysClass):MathFunctionBuilder = {currentRapper.value = currentRapper.value * 3; this}
     	def apply(o:OneClass):MathFunctionBuilder = {currentRapper.value = currentRapper.value + 1; this}
+        def apply(n:NegClass):MathFunctionBuilder = {currentRapper.value = currentRapper.value - 1; this}
         def apply(c:ConjunctionClass):StartSentenceClass = {
             new StartSentenceClass
         }
@@ -53,6 +55,10 @@ class RapBattle{
 
         def THE:TheClass = {
             new TheClass
+        }
+
+        def A(m:MilClass) = {
+            new MilClass
         }
     	def apply(g: TheClass):TheClass = g;
         def apply(m: MilClass):MilClass = m;
@@ -81,12 +87,14 @@ class RapBattle{
 
 	class AnotherClass extends MathFunctionBuilder{}
 
+
     object I extends IClass{}
     object HALF extends HalfClass{}
     object THE extends TheClass{}
     object KEYS extends KeysClass{}
     object ONE extends OneClass{}
     object ANOTHER extends AnotherClass{}
+    object NEG extends NegClass{}
     object SPIT extends SpitClass{}
     object STACKS extends StacksClass{}
     object MIL extends MilClass{}
@@ -99,6 +107,9 @@ class RapBattle{
 
     class MilClass{
         currentRapper.value = currentRapper.value/2;
+        def AND(h:HalfClass) = {
+            new Builder;
+        }
     }
 
     class SpitClass{
@@ -106,12 +117,14 @@ class RapBattle{
             println(s);
         }
         def FIRE:Unit = {
-            println(currentRapper.name);
+            //println(currentRapper.name);
             println(currentRapper.value);
         }
     }
 
     class OneClass{}
+
+    class NegClass{}
 
     class KeysClass{}
 
@@ -146,7 +159,11 @@ class RapBattle{
         var conditional = false;
 
     	def YO:StartSentenceClass = {
+            println()
     		currentRapper = this;
+            print("Give it up for ")
+            println(currentRapper.name)
+            println()
             new StartSentenceClass
     	}
 

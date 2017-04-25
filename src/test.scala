@@ -7,29 +7,45 @@ object test extends RapBattle{
 	object SNOOPDOG extends Rapper{
 		name = "Snoop Dog";
 	}
-	def main(args: Array[String]): Unit = {
-		SNOOPDOG YO I GOT THE KEYS KEYS KEYS AND I GOT 5 STACKS 
 
-		SPIT STRING "Should be 135"
+	def main(args: Array[String]): Unit = {
+		SNOOPDOG YO I GOT 5 STACKS AND I GOT THE KEYS KEYS KEYS
+ 		
+		ANOTHER NEG NEG NEG
+
+		SPIT STRING "Should be 132"
 
 		SPIT FIRE
 
-		DJKHALED YO
+		HALF A MIL AND HALF A MIL
 
-		I GOT 6 STACKS
+		SPIT STRING "Should be 33"
+
+		SPIT FIRE
+
+		DJKHALED YO I GOT 6 STACKS 
+
+		I GOT 7 STACKS
 
 		HALF A MIL
 
 		ANOTHER ONE ONE ONE
 
-		SPIT FIRE
+		SPIT STRING "Should be 24"
 
-		SPIT STRING "Should be 6"
+		SPIT FIRE
 
 		I GOT 7 STACKS
 
-		SPIT STRING "Should be 42"
+		SPIT STRING "Should be 315"
 
 		SPIT FIRE
+
+
+
+
+
+
+
 	}
 }
