@@ -52,56 +52,5 @@ object test extends RapBattle{
 		BOTTLES N MODELS;
 
 		SPIT VERSE "DONE";
-
-
-
-
-
-
-
-		// SNOOPDOG YO 
-
-		// I GOT 5 STACKS AND I GOT THE KEYS KEYS KEYS	// Val*= 5 * 3 * 3 * 3
-
-		// SPIT FIRE // Print Val
-
-		// EVERYBODY JUMP 20 // If val > 200
-
-		// ANOTHER ONE // val + 1
-
-		// SPIT STRING "Should be 136" // print 
-
-		// HALF A MIL AND HALF A MIL AND HALF A MIL // Doesn't do anything ??
-
-		// SPIT STRING "Should be 1"
-
-		// SPIT FIRE // print val
-
-		// DJKHALED YO I GOT 6 STACKS // curr rappyer = dj khaled and val = val * 6 (6)
-
-		// STRAIGHT OUTTA COMPTON // ELSE
-
-		// I GOT 7 STACKS // snoop.val * 7 (945)
-
-		// HALF A MIL // divide by 2 (472)
-
-		// ANOTHER ONE ONE ONE //  snoop.val + 3 (475)
-
-		// SPIT STRING "Should be 475"
-
-		// SPIT FIRE // print snoop.val
-
-		// I GOT 7 STACKS // snoop.val *7 (6636)
-
-		// BOTTLES N MODELS
-
-		// SPIT STRING "Should be 3325"
-
-		// SPIT FIRE
-
-
-
-
-
 	}
 }

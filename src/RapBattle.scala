@@ -37,7 +37,7 @@ class RapBattle{
         // }
     	def KEYS:MathFunctionBuilder = {
             if(conditionStack.top == 1 || conditionStack.size == 1){
-                currentRapper.value = currentRapper.value * 3; 
+                currentRapper.value = currentRapper.value^2; 
             }
             this;
             
@@ -61,7 +61,7 @@ class RapBattle{
         }
     	def apply(a:KeysClass):MathFunctionBuilder = {
             if(conditionStack.top == 1 || conditionStack.size == 1){
-                currentRapper.value = currentRapper.value * 3; 
+                currentRapper.value = currentRapper.value^2; 
             }
             this;
             
@@ -103,7 +103,7 @@ class RapBattle{
 
         def A(m:MilClass) = {
             if(conditionStack.top == 1 || conditionStack.size == 1){
-                currentRapper.value = currentRapper.value/2;
+                currentRapper.value = currentRapper.value % 2;
             }
             new MilClass
         }
@@ -126,12 +126,24 @@ class RapBattle{
             }
             new Builder;
         }
+        def GET(p: PaidClass):Unit = {
+            if(conditionStack.top == 1 || conditionStack.size == 1){
+                currentRapper.value = Console.readInt;
+            }
+        }
+        def LIKE(d: DatClass):Unit = {
+            if(conditionStack.top == 1 || conditionStack.size == 1){
+                val r = scala.util.Random;
+                currentRapper.value = r.nextInt(currentRapper.value) + 1;            
+            }
+
+        }
 	}
 
     class HalfClass {
         def A:Builder = {
             if(conditionStack.top == 1 || conditionStack.size == 1){
-                currentRapper.value = currentRapper.value/2;
+                currentRapper.value = currentRapper.value % 2;
             }
             new Builder
         }
@@ -157,11 +169,15 @@ class RapBattle{
     object COMPTON extends ComptonClass{}
     object BOTTLES extends EndIfClass{}
     object MODELS extends ModelsClass{}
+    object PAID extends PaidClass{}
+    object DAT extends DatClass{}
 
     class AndClass {}
     class GotClass {}
     class ComptonClass{}
     class ModelsClass{}
+    class PaidClass{}
+    class DatClass{}
 
 
     class MilClass{
@@ -171,13 +187,12 @@ class RapBattle{
     }
 
     class SpitClass{
-        def STRING(s: String):Unit = {
+        def VERSE(s: String):Unit = {
             if(conditionStack.top == 1 || conditionStack.size == 1){
                 println(s);
             }
         }
         def FIRE:Unit = {
-            //println(currentRapper.name);
             if(conditionStack.top == 1 || conditionStack.size == 1){
                 println(currentRapper.value);
             }
@@ -250,6 +265,33 @@ class RapBattle{
                 conditionStack.push(-1);
             }
         }
+        def WAVE_YA_HAND(r:Rapper) = {
+            if(currentRapper.value == r.value)
+            {
+                conditionStack.push(1);
+            }
+            else {
+                conditionStack.push(-1);
+            }
+        }
+        def SHAKE_YA_BUTT(r:Rapper) = {
+            if(currentRapper.value < r.value)
+            {
+                conditionStack.push(1);
+            }
+            else {
+                conditionStack.push(-1);
+            }
+        }
+        def RAISE_THA_ROOF(r:Rapper) = {
+            if(currentRapper.value > r.value)
+            {
+                conditionStack.push(1);
+            }
+            else {
+                conditionStack.push(-1);
+            }
+        }
     }
 
     class ConjunctionClass {
@@ -283,11 +325,7 @@ class RapBattle{
             }
 
             if(conditionStack.top == 1 || conditionStack.size == 1){
-                println()
         		currentRapper = this;
-                print("Give it up for ")
-                println(currentRapper.name)
-                println()
             }
             new StartSentenceClass
     	}
