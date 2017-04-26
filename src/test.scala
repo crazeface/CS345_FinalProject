@@ -9,9 +9,13 @@ object test extends RapBattle{
 	}
 
 	def main(args: Array[String]): Unit = {
-		SNOOPDOG YO I GOT 5 STACKS AND I GOT THE KEYS KEYS KEYS
- 		
-		ANOTHER NEG NEG NEG
+		SNOOPDOG YO 
+
+		EVERYBODY JUMP 10
+
+		I GOT 5 STACKS AND I GOT THE KEYS KEYS KEYS	//Val*= 5 + 3
+
+		ANOTHER NEG NEG NEG		//Val-=3
 
 		SPIT STRING "Should be 132"
 
@@ -40,6 +44,10 @@ object test extends RapBattle{
 		SPIT STRING "Should be 315"
 
 		SPIT FIRE
+
+		//EVERYBODY JUMP x = Greater than x 
+		//EVERYBODY SQUAT x = Less than x
+		//EVERYBODY BOB_YE_HEAD x = Equal x
 
 
 

@@ -1,9 +1,9 @@
 class RapBattle{	
 
-/*
-	import scala.collection.mutable.{HashMap, HashSet, Stack};
-	import scala.collection.immutable.{TreeMap};
 
+	import scala.collection.mutable.{Stack};
+	//import scala.collection.immutable.{TreeMap}; HashMap, HashSet,
+/*
 	// used for jump PCs
 	private var index = Tuple3(0,0,0)
 	// store all lines as Act->Scene->Line where line has all necessary data
@@ -18,10 +18,10 @@ class RapBattle{
 	private var curAct:Act = null;
 	private var curScene:Scene = null;
 */
-	
+	var conditionStack:Stack[Int] = new Stack[Int]
 	private var num=1;
 	private var currentRapper:Rapper = null;
-
+    var firstRapper = true;
 	// class MainFollowTrait{
 	// 	def apply(i:IClass):IClass = i
 	// }
@@ -35,12 +35,54 @@ class RapBattle{
         // def KEYS(c: ConjunctionClass):StartSentenceClass = {
         //     new StartSentenceClass
         // }
-    	def KEYS:MathFunctionBuilder = {currentRapper.value = currentRapper.value * 3; this}
-    	def ONE:MathFunctionBuilder = {currentRapper.value = currentRapper.value + 1; this}
-        def NEG:MathFunctionBuilder = {currentRapper.value = currentRapper.value - 1; this}
-    	def apply(a:KeysClass):MathFunctionBuilder = {currentRapper.value = currentRapper.value * 3; this}
-    	def apply(o:OneClass):MathFunctionBuilder = {currentRapper.value = currentRapper.value + 1; this}
-        def apply(n:NegClass):MathFunctionBuilder = {currentRapper.value = currentRapper.value - 1; this}
+    	def KEYS:MathFunctionBuilder = {
+            if(conditionStack.top == 1){
+                currentRapper.value = currentRapper.value * 3; 
+            }
+            this;
+            
+
+        }
+    	def ONE:MathFunctionBuilder = {
+            if(conditionStack.top == 1){
+                currentRapper.value = currentRapper.value + 1; 
+            }
+            this;
+            
+
+        }
+        def NEG:MathFunctionBuilder = {
+            if(conditionStack.top == 1){
+                currentRapper.value = currentRapper.value - 1; 
+            }
+            this;
+            
+
+        }
+    	def apply(a:KeysClass):MathFunctionBuilder = {
+            if(conditionStack.top == 1){
+                currentRapper.value = currentRapper.value * 3; 
+            }
+            this;
+            
+
+        }
+    	def apply(o:OneClass):MathFunctionBuilder = {
+            if(conditionStack.top == 1){
+                currentRapper.value = currentRapper.value + 1; 
+            }
+            this;
+            
+
+        }
+        def apply(n:NegClass):MathFunctionBuilder = {
+            if(conditionStack.top == 1){
+                currentRapper.value = currentRapper.value - 1; 
+            }
+            this;
+            
+
+        }   
         def apply(c:ConjunctionClass):StartSentenceClass = {
             new StartSentenceClass
         }
@@ -50,6 +92,8 @@ class RapBattle{
         def STACKS(c:ConjunctionClass) = {
             new StartSentenceClass
         }
+
+
 	    
         def STACKS:Unit = {}
 
@@ -74,7 +118,9 @@ class RapBattle{
             new TheClass
         }
         def GOT(i: Int):Builder = {
-            currentRapper.value = i * currentRapper.value;
+            if(conditionStack.top == 1){
+                currentRapper.value = i * currentRapper.value;
+            }
             new Builder;
         }
 	}
@@ -100,13 +146,17 @@ class RapBattle{
     object MIL extends MilClass{}
     object AND extends ConjunctionClass{}
     object GOT extends GotClass{}
+    object EVERYBODY extends ConditionalsClass{}
+
 
     class AndClass {}
     class GotClass {}
 
 
     class MilClass{
-        currentRapper.value = currentRapper.value/2;
+        if(conditionStack.top == 1){
+            currentRapper.value = currentRapper.value/2;
+        }
         def AND(h:HalfClass) = {
             new Builder;
         }
@@ -114,11 +164,15 @@ class RapBattle{
 
     class SpitClass{
         def STRING(s: String):Unit = {
-            println(s);
+            if(conditionStack.top == 1){
+                println(s);
+            }
         }
         def FIRE:Unit = {
             //println(currentRapper.name);
-            println(currentRapper.value);
+            if(conditionStack.top == 1){
+                println(currentRapper.value);
+            }
         }
     }
 
@@ -143,7 +197,45 @@ class RapBattle{
         def apply(h:HalfClass):HalfClass = {
             new HalfClass
         }
+        def EVERYBODY:ConditionalsClass = {
+            new ConditionalsClass
+        }
 
+    }
+
+    class ConditionalsClass{
+        def JUMP(i:Int) = {
+
+            if(currentRapper.value > i)
+            {
+                conditionStack.push(1);
+            }
+            else 
+            {
+                conditionStack.push(-1);
+            }
+
+        }
+        def SQUAT(i:Int) = {
+            if(currentRapper.value < i)
+            {
+                conditionStack.push(1);
+            }
+            else 
+            {
+                conditionStack.push(-1);
+            }
+        }
+        def BOB_YE_HEAD(i:Int) = {
+            if(currentRapper.value == i)
+            {
+                conditionStack.push(1);
+            }
+            else 
+            {
+                conditionStack.push(-1);
+            }
+        }
     }
 
     class ConjunctionClass {
@@ -159,11 +251,18 @@ class RapBattle{
         var conditional = false;
 
     	def YO:StartSentenceClass = {
-            println()
-    		currentRapper = this;
-            print("Give it up for ")
-            println(currentRapper.name)
-            println()
+            if(firstRapper == true){
+                conditionStack.push(1); 
+                firstRapper = false;
+            }
+
+            if(conditionStack.top == 1){
+                println()
+        		currentRapper = this;
+                print("Give it up for ")
+                println(currentRapper.name)
+                println()
+            }
             new StartSentenceClass
     	}
 
