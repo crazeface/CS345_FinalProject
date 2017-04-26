@@ -36,7 +36,7 @@ class RapBattle{
         //     new StartSentenceClass
         // }
     	def KEYS:MathFunctionBuilder = {
-            if(conditionStack.top == 1){
+            if(conditionStack.top == 1 || conditionStack.size == 1){
                 currentRapper.value = currentRapper.value * 3; 
             }
             this;
@@ -44,7 +44,7 @@ class RapBattle{
 
         }
     	def ONE:MathFunctionBuilder = {
-            if(conditionStack.top == 1){
+            if(conditionStack.top == 1 || conditionStack.size == 1) {
                 currentRapper.value = currentRapper.value + 1; 
             }
             this;
@@ -52,7 +52,7 @@ class RapBattle{
 
         }
         def NEG:MathFunctionBuilder = {
-            if(conditionStack.top == 1){
+            if(conditionStack.top == 1 || conditionStack.size == 1){
                 currentRapper.value = currentRapper.value - 1; 
             }
             this;
@@ -60,7 +60,7 @@ class RapBattle{
 
         }
     	def apply(a:KeysClass):MathFunctionBuilder = {
-            if(conditionStack.top == 1){
+            if(conditionStack.top == 1 || conditionStack.size == 1){
                 currentRapper.value = currentRapper.value * 3; 
             }
             this;
@@ -68,7 +68,7 @@ class RapBattle{
 
         }
     	def apply(o:OneClass):MathFunctionBuilder = {
-            if(conditionStack.top == 1){
+            if(conditionStack.top == 1 || conditionStack.size == 1){
                 currentRapper.value = currentRapper.value + 1; 
             }
             this;
@@ -76,7 +76,7 @@ class RapBattle{
 
         }
         def apply(n:NegClass):MathFunctionBuilder = {
-            if(conditionStack.top == 1){
+            if(conditionStack.top == 1 || conditionStack.size == 1){
                 currentRapper.value = currentRapper.value - 1; 
             }
             this;
@@ -102,6 +102,9 @@ class RapBattle{
         }
 
         def A(m:MilClass) = {
+            if(conditionStack.top == 1 || conditionStack.size == 1){
+                currentRapper.value = currentRapper.value/2;
+            }
             new MilClass
         }
     	def apply(g: TheClass):TheClass = g;
@@ -118,7 +121,7 @@ class RapBattle{
             new TheClass
         }
         def GOT(i: Int):Builder = {
-            if(conditionStack.top == 1){
+            if(conditionStack.top == 1 || conditionStack.size == 1){
                 currentRapper.value = i * currentRapper.value;
             }
             new Builder;
@@ -127,6 +130,9 @@ class RapBattle{
 
     class HalfClass {
         def A:Builder = {
+            if(conditionStack.top == 1 || conditionStack.size == 1){
+                currentRapper.value = currentRapper.value/2;
+            }
             new Builder
         }
     }
@@ -147,16 +153,18 @@ class RapBattle{
     object AND extends ConjunctionClass{}
     object GOT extends GotClass{}
     object EVERYBODY extends ConditionalsClass{}
-
+    object STRAIGHT extends ElseClass{}
+    object COMPTON extends ComptonClass{}
+    object BOTTLES extends EndIfClass{}
+    object MODELS extends ModelsClass{}
 
     class AndClass {}
     class GotClass {}
+    class ComptonClass{}
+    class ModelsClass{}
 
 
     class MilClass{
-        if(conditionStack.top == 1){
-            currentRapper.value = currentRapper.value/2;
-        }
         def AND(h:HalfClass) = {
             new Builder;
         }
@@ -164,13 +172,13 @@ class RapBattle{
 
     class SpitClass{
         def STRING(s: String):Unit = {
-            if(conditionStack.top == 1){
+            if(conditionStack.top == 1 || conditionStack.size == 1){
                 println(s);
             }
         }
         def FIRE:Unit = {
             //println(currentRapper.name);
-            if(conditionStack.top == 1){
+            if(conditionStack.top == 1 || conditionStack.size == 1){
                 println(currentRapper.value);
             }
         }
@@ -200,6 +208,12 @@ class RapBattle{
         def EVERYBODY:ConditionalsClass = {
             new ConditionalsClass
         }
+        def STRAIGHT:ElseClass = {
+            new ElseClass
+        }
+        def BOTTLES:EndIfClass = {
+            new EndIfClass
+        }
 
     }
 
@@ -226,7 +240,7 @@ class RapBattle{
                 conditionStack.push(-1);
             }
         }
-        def BOB_YE_HEAD(i:Int) = {
+        def BOB_YA_HEAD(i:Int) = {
             if(currentRapper.value == i)
             {
                 conditionStack.push(1);
@@ -244,6 +258,18 @@ class RapBattle{
         }
     }
 
+    class ElseClass {
+        def OUTTA(c: ComptonClass):Unit = {
+            val topofstack:Int = conditionStack.pop;
+            conditionStack.push(topofstack * -1);
+        }
+    }
+
+    class EndIfClass {
+        def N(m: ModelsClass):Unit = {
+            conditionStack.pop;
+        }
+    }
 
     class Rapper{
     	var name = "";
@@ -256,7 +282,7 @@ class RapBattle{
                 firstRapper = false;
             }
 
-            if(conditionStack.top == 1){
+            if(conditionStack.top == 1 || conditionStack.size == 1){
                 println()
         		currentRapper = this;
                 print("Give it up for ")
