@@ -36,7 +36,7 @@ class RapBattle{
         //     new StartSentenceClass
         // }
     	def KEYS:MathFunctionBuilder = {
-            if(conditionStack.top == 1 || conditionStack.size == 1){
+            if(conditionStack.top == 1){
                 currentRapper.value = currentRapper.value^2; 
             }
             this;
@@ -44,7 +44,7 @@ class RapBattle{
 
         }
     	def ONE:MathFunctionBuilder = {
-            if(conditionStack.top == 1 || conditionStack.size == 1) {
+            if(conditionStack.top == 1) {
                 currentRapper.value = currentRapper.value + 1; 
             }
             this;
@@ -52,7 +52,7 @@ class RapBattle{
 
         }
         def NEG:MathFunctionBuilder = {
-            if(conditionStack.top == 1 || conditionStack.size == 1){
+            if(conditionStack.top == 1){
                 currentRapper.value = currentRapper.value - 1; 
             }
             this;
@@ -60,7 +60,7 @@ class RapBattle{
 
         }
     	def apply(a:KeysClass):MathFunctionBuilder = {
-            if(conditionStack.top == 1 || conditionStack.size == 1){
+            if(conditionStack.top == 1){
                 currentRapper.value = currentRapper.value^2; 
             }
             this;
@@ -68,7 +68,7 @@ class RapBattle{
 
         }
     	def apply(o:OneClass):MathFunctionBuilder = {
-            if(conditionStack.top == 1 || conditionStack.size == 1){
+            if(conditionStack.top == 1){
                 currentRapper.value = currentRapper.value + 1; 
             }
             this;
@@ -76,7 +76,7 @@ class RapBattle{
 
         }
         def apply(n:NegClass):MathFunctionBuilder = {
-            if(conditionStack.top == 1 || conditionStack.size == 1){
+            if(conditionStack.top == 1){
                 currentRapper.value = currentRapper.value - 1; 
             }
             this;
@@ -102,7 +102,7 @@ class RapBattle{
         }
 
         def A(m:MilClass) = {
-            if(conditionStack.top == 1 || conditionStack.size == 1){
+            if(conditionStack.top == 1){
                 currentRapper.value = currentRapper.value % 2;
             }
             new MilClass
@@ -121,18 +121,18 @@ class RapBattle{
             new TheClass
         }
         def GOT(i: Int):Builder = {
-            if(conditionStack.top == 1 || conditionStack.size == 1){
+            if(conditionStack.top == 1){
                 currentRapper.value = i * currentRapper.value;
             }
             new Builder;
         }
         def GET(p: PaidClass):Unit = {
-            if(conditionStack.top == 1 || conditionStack.size == 1){
+            if(conditionStack.top == 1){
                 currentRapper.value = Console.readInt;
             }
         }
         def LIKE(d: DatClass):Unit = {
-            if(conditionStack.top == 1 || conditionStack.size == 1){
+            if(conditionStack.top == 1){
                 val r = scala.util.Random;
                 currentRapper.value = r.nextInt(currentRapper.value) + 1;            
             }
@@ -142,7 +142,7 @@ class RapBattle{
 
     class HalfClass {
         def A:Builder = {
-            if(conditionStack.top == 1 || conditionStack.size == 1){
+            if(conditionStack.top == 1){
                 currentRapper.value = currentRapper.value % 2;
             }
             new Builder
@@ -188,12 +188,12 @@ class RapBattle{
 
     class SpitClass{
         def VERSE(s: String):Unit = {
-            if(conditionStack.top == 1 || conditionStack.size == 1){
+            if(conditionStack.top == 1){
                 println(s);
             }
         }
         def FIRE:Unit = {
-            if(conditionStack.top == 1 || conditionStack.size == 1){
+            if(conditionStack.top == 1){
                 println(currentRapper.value);
             }
         }
@@ -234,63 +234,70 @@ class RapBattle{
 
     class ConditionalsClass{
         def JUMP(i:Int) = {
-
-            if(currentRapper.value > i)
-            {
-                conditionStack.push(1);
-            }
-            else 
-            {
-                conditionStack.push(-1);
-            }
-
+	    if(conditionStack.top == 1){
+                if(currentRapper.value > i) {
+                    conditionStack.push(1);
+                } else {
+                    conditionStack.push(-1);
+                }
+	    } else {
+		conditionStack.push(-2);
+   	    }
         }
         def SQUAT(i:Int) = {
-            if(currentRapper.value < i)
-            {
-                conditionStack.push(1);
-            }
-            else 
-            {
-                conditionStack.push(-1);
-            }
+  	    if(conditionStack.top != -1) {
+                if(currentRapper.value < i) {
+                    conditionStack.push(1);
+                } else {
+                    conditionStack.push(-1);
+                }
+	    } else {
+		conditionStack.push(-2);
+  	    }
         }
         def BOB_YA_HEAD(i:Int) = {
-            if(currentRapper.value == i)
-            {
-                conditionStack.push(1);
-            }
-            else 
-            {
-                conditionStack.push(-1);
-            }
+  	    if(conditionStack.top == 1) {
+                if(currentRapper.value == i) {
+                    conditionStack.push(1);
+                } else {
+                    conditionStack.push(-1);
+                }
+	    } else {
+		conditionStack.push(-2);
+	    }
         }
         def WAVE_YA_HAND(r:Rapper) = {
-            if(currentRapper.value == r.value)
-            {
-                conditionStack.push(1);
-            }
-            else {
-                conditionStack.push(-1);
-            }
+  	    if(conditionStack.top == 1) {
+                if(currentRapper.value == r.value) {
+                    conditionStack.push(1);
+                } else {
+                    conditionStack.push(-1);
+                }
+	    } else {
+		conditionStack.push(-2);
+	    }
         }
         def SHAKE_YA_BUTT(r:Rapper) = {
-            if(currentRapper.value < r.value)
-            {
-                conditionStack.push(1);
-            }
-            else {
-                conditionStack.push(-1);
-            }
+  	    if(conditionStack.top == 1) {
+                if(currentRapper.value < r.value) {
+                    conditionStack.push(1);
+                } else {
+                    conditionStack.push(-1);
+                }
+	    } else {
+		conditionStack.push(-2);
+	    }
         }
         def RAISE_THA_ROOF(r:Rapper) = {
-            if(currentRapper.value > r.value)
-            {
-                conditionStack.push(1);
-            }
-            else {
-                conditionStack.push(-1);
-            }
+  	    if(conditionStack.top == 1) {
+                if(currentRapper.value > r.value) {
+                    conditionStack.push(1);
+                } else {
+                    conditionStack.push(-1);
+                }
+	    } else {
+		conditionStack.push(-2);
+	    }
         }
     }
 
@@ -323,10 +330,7 @@ class RapBattle{
                 conditionStack.push(1); 
                 firstRapper = false;
             }
-
-            if(conditionStack.top == 1 || conditionStack.size == 1){
-        		currentRapper = this;
-            }
+            currentRapper = this;
             new StartSentenceClass
     	}
 
