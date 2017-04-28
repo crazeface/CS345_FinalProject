@@ -2,6 +2,7 @@ class RapBattle{
 
 
 	import scala.collection.mutable.{Stack};
+
 	//import scala.collection.immutable.{TreeMap}; HashMap, HashSet,
 /*
 	// used for jump PCs
@@ -37,7 +38,7 @@ class RapBattle{
         // }
     	def KEYS:MathFunctionBuilder = {
             if(conditionStack.top == 1){
-                currentRapper.value = currentRapper.value^2; 
+                currentRapper.value = scala.math.pow(currentRapper.value,2).toInt; 
             }
             this;
             
@@ -61,7 +62,7 @@ class RapBattle{
         }
     	def apply(a:KeysClass):MathFunctionBuilder = {
             if(conditionStack.top == 1){
-                currentRapper.value = currentRapper.value^2; 
+                currentRapper.value = scala.math.pow(currentRapper.value,2).toInt; 
             }
             this;
             
@@ -92,8 +93,6 @@ class RapBattle{
         def STACKS(c:ConjunctionClass) = {
             new StartSentenceClass
         }
-
-
 	    
         def STACKS:Unit = {}
 
@@ -107,6 +106,9 @@ class RapBattle{
             }
             new MilClass
         }
+        def HOMIES:Unit = {}
+        def Gs:Unit = {}
+        def PROBLEMS:Unit = {}
     	def apply(g: TheClass):TheClass = g;
         def apply(m: MilClass):MilClass = m;
     }
@@ -120,7 +122,7 @@ class RapBattle{
         def GOT(t: TheClass):TheClass = {
             new TheClass
         }
-        def GOT(i: Int):Builder = {
+        def HAVE(i: Int):Builder = {
             if(conditionStack.top == 1){
                 currentRapper.value = i * currentRapper.value;
             }
@@ -128,7 +130,7 @@ class RapBattle{
         }
         def GET(p: PaidClass):Unit = {
             if(conditionStack.top == 1){
-                currentRapper.value = Console.readInt;
+                currentRapper.value = scala.io.StdIn.readInt;
             }
         }
         def LIKE(d: DatClass):Unit = {
@@ -137,6 +139,24 @@ class RapBattle{
                 currentRapper.value = r.nextInt(currentRapper.value) + 1;            
             }
 
+        }
+        def LOST(i: Int):Builder = {
+            if(conditionStack.top == 1){
+                currentRapper.value = currentRapper.value - i;
+            }
+            new Builder;
+        }
+        def PICKED_UP(i: Int):Builder = {
+            if(conditionStack.top == 1){
+                currentRapper.value = currentRapper.value + i;
+            }
+            new Builder;
+        }
+        def GOT(i: Int):Builder = {
+            if(conditionStack.top == 1){
+                currentRapper.value = currentRapper.value / i;
+            }
+            new Builder;
         }
 	}
 
@@ -245,7 +265,7 @@ class RapBattle{
    	    }
         }
         def SQUAT(i:Int) = {
-  	    if(conditionStack.top != -1) {
+  	    if(conditionStack.top == 1) {
                 if(currentRapper.value < i) {
                     conditionStack.push(1);
                 } else {

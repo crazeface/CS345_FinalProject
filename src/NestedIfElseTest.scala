@@ -1,8 +1,4 @@
-object test extends RapBattle{
-
-	object DJKHALED extends Rapper{
-		name = "DJ Khaled";
-	}
+object NestedIfElse extends RapBattle{
 
 	object SNOOPDOG extends Rapper{
 		name = "Snoop Dog";
@@ -12,9 +8,9 @@ object test extends RapBattle{
 		SNOOPDOG YO; // 1
 		EVERYBODY BOB_YA_HEAD 1; // if val == 1 
 			ANOTHER ONE; // Val = 2
-			I GOT 5 STACKS;; // Val = 10
+			I HAVE 5 STACKS;; // Val = 10
 			EVERYBODY SQUAT 5;
-				SPIT VERSE "Should Not Be In HEre";
+				SPIT VERSE "Should Not Be In Here";
 			STRAIGHT OUTTA COMPTON;
 				HALF A MIL;
 				SPIT VERSE "Should be 5, Nested If Else Works";

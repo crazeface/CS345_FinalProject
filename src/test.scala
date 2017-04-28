@@ -49,6 +49,7 @@ object test extends RapBattle{
 					SPIT VERSE "TOOK YOU LONG ENOUGH. GOT IT! THE NUMBER WAS:";
 					SPIT FIRE;
 				STRAIGHT OUTTA COMPTON;
+					DJKHALED YO;
 					SPIT VERSE "You're trash. LOSE. THE NUMBER WAS:";
 					SPIT FIRE;
 				BOTTLES N MODELS;
