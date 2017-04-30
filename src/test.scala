@@ -1,3 +1,4 @@
+import scala.language.postfixOps;
 object test extends RapBattle{
 
 	object DJKHALED extends Rapper{
@@ -10,53 +11,56 @@ object test extends RapBattle{
 
 	def main(args: Array[String]): Unit = {
 		DJKHALED YO;
-		SPIT VERSE "Give me your upper bound fool";
-		I GET PAID;
-		I LIKE DAT;
-
-		SNOOPDOG YO;
-
-		SPIT VERSE "Give me a number between 1 and your bound"
-		I GET PAID;
-
-		EVERYBODY WAVE_YA_HAND DJKHALED;
-			SPIT VERSE "YOU WIN MANG. THE NUMBER WAS:";
+			I NEED 5 DOCTORS;
+			SPIT VERSE "Should be 5";
 			SPIT FIRE;
-		STRAIGHT OUTTA COMPTON;
-			EVERYBODY RAISE_THA_ROOF DJKHALED;
-				SPIT VERSE "Gotta go lower, dawg.";
-				SPIT VERSE "Try again!";			
-				I GET PAID;
-			STRAIGHT OUTTA COMPTON;
-				SPIT VERSE "Gotta go higher, dawg.";
-				SPIT VERSE "Try again!";			
-				I GET PAID;
-			BOTTLES N MODELS;
-			EVERYBODY WAVE_YA_HAND DJKHALED;
-				SPIT VERSE "DANG YOU GOT IT - SECOND TRY. THE NUMBER WAS:";
-				SPIT FIRE;
-			STRAIGHT OUTTA COMPTON;
-				EVERYBODY RAISE_THA_ROOF DJKHALED;
-					SPIT VERSE "Gotta go lower, dawg.";
-					SPIT VERSE "Nah Fam. One last try";
-					I GET PAID;
-				STRAIGHT OUTTA COMPTON;
-					SPIT VERSE "Gotta go higher, dawg.";
-					SPIT VERSE "Nah Fam. One last try";
-					I GET PAID;
-				BOTTLES N MODELS;
-				EVERYBODY WAVE_YA_HAND DJKHALED;
-					SPIT VERSE "TOOK YOU LONG ENOUGH. GOT IT! THE NUMBER WAS:";
-					SPIT FIRE;
-				STRAIGHT OUTTA COMPTON;
-					DJKHALED YO;
-					SPIT VERSE "You're trash. LOSE. THE NUMBER WAS:";
-					SPIT FIRE;
-				BOTTLES N MODELS;
-			BOTTLES N MODELS;
-		BOTTLES N MODELS;
+		// SPIT VERSE "Give me your upper bound fool";
+		// I GET PAID;
+		// I LIKE DAT;
 
-		SPIT VERSE "DONE";
+		// SNOOPDOG YO;
+
+		// SPIT VERSE "Give me a number between 1 and your bound"
+		// I GET PAID;
+
+		// EVERYBODY WAVE_YA_HAND DJKHALED;
+		// 	SPIT VERSE "YOU WIN MANG. THE NUMBER WAS:";
+		// 	SPIT FIRE;
+		// STRAIGHT OUTTA COMPTON;
+		// 	EVERYBODY RAISE_THA_ROOF DJKHALED;
+		// 		SPIT VERSE "Gotta go lower, dawg.";
+		// 		SPIT VERSE "Try again!";			
+		// 		I GET PAID;
+		// 	STRAIGHT OUTTA COMPTON;
+		// 		SPIT VERSE "Gotta go higher, dawg.";
+		// 		SPIT VERSE "Try again!";			
+		// 		I GET PAID;
+		// 	BOTTLES N MODELS;
+		// 	EVERYBODY WAVE_YA_HAND DJKHALED;
+		// 		SPIT VERSE "DANG YOU GOT IT - SECOND TRY. THE NUMBER WAS:";
+		// 		SPIT FIRE;
+		// 	STRAIGHT OUTTA COMPTON;
+		// 		EVERYBODY RAISE_THA_ROOF DJKHALED;
+		// 			SPIT VERSE "Gotta go lower, dawg.";
+		// 			SPIT VERSE "Nah Fam. One last try";
+		// 			I GET PAID;
+		// 		STRAIGHT OUTTA COMPTON;
+		// 			SPIT VERSE "Gotta go higher, dawg.";
+		// 			SPIT VERSE "Nah Fam. One last try";
+		// 			I GET PAID;
+		// 		BOTTLES N MODELS;
+		// 		EVERYBODY WAVE_YA_HAND DJKHALED;
+		// 			SPIT VERSE "TOOK YOU LONG ENOUGH. GOT IT! THE NUMBER WAS:";
+		// 			SPIT FIRE;
+		// 		STRAIGHT OUTTA COMPTON;
+		// 			DJKHALED YO;
+		// 			SPIT VERSE "You're trash. LOSE. THE NUMBER WAS:";
+		// 			SPIT FIRE;
+		// 		BOTTLES N MODELS;
+		// 	BOTTLES N MODELS;
+		// BOTTLES N MODELS;
+
+		// SPIT VERSE "DONE";
 
 
 

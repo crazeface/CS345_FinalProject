@@ -1,3 +1,4 @@
+import scala.language.postfixOps;
 object NestedIfElse extends RapBattle{
 
 	object SNOOPDOG extends Rapper{
@@ -8,8 +9,8 @@ object NestedIfElse extends RapBattle{
 		SNOOPDOG YO; // 1
 		EVERYBODY BOB_YA_HEAD 1; // if val == 1 
 			ANOTHER ONE; // Val = 2
-			I HAVE 5 STACKS;; // Val = 10
-			EVERYBODY SQUAT 5;
+			I HAVE 5 STACKS; // Val = 10
+			EVERYBODY SQUAT 5;	//if val < 5
 				SPIT VERSE "Should Not Be In Here";
 			STRAIGHT OUTTA COMPTON;
 				HALF A MIL;

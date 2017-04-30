@@ -2,7 +2,7 @@ class RapBattle{
 
 
 	import scala.collection.mutable.{Stack};
-
+    
 	//import scala.collection.immutable.{TreeMap}; HashMap, HashSet,
 /*
 	// used for jump PCs
@@ -109,6 +109,7 @@ class RapBattle{
         def HOMIES:Unit = {}
         def Gs:Unit = {}
         def PROBLEMS:Unit = {}
+        def DOCTORS:Unit = {}
     	def apply(g: TheClass):TheClass = g;
         def apply(m: MilClass):MilClass = m;
     }
@@ -155,6 +156,12 @@ class RapBattle{
         def GOT(i: Int):Builder = {
             if(conditionStack.top == 1){
                 currentRapper.value = currentRapper.value / i;
+            }
+            new Builder;
+        }
+        def NEED(i: Int):Builder = {
+            if(conditionStack.top == 1){
+                currentRapper.value = i;
             }
             new Builder;
         }
@@ -254,70 +261,70 @@ class RapBattle{
 
     class ConditionalsClass{
         def JUMP(i:Int) = {
-	    if(conditionStack.top == 1){
-                if(currentRapper.value > i) {
-                    conditionStack.push(1);
-                } else {
-                    conditionStack.push(-1);
-                }
-	    } else {
-		conditionStack.push(-2);
-   	    }
+    	    if(conditionStack.top == 1){
+                    if(currentRapper.value > i) {
+                        conditionStack.push(1);
+                    } else {
+                        conditionStack.push(-1);
+                    }
+    	    } else {
+    		conditionStack.push(-2);
+   	        }
         }
         def SQUAT(i:Int) = {
-  	    if(conditionStack.top == 1) {
-                if(currentRapper.value < i) {
-                    conditionStack.push(1);
-                } else {
-                    conditionStack.push(-1);
-                }
-	    } else {
-		conditionStack.push(-2);
-  	    }
+      	    if(conditionStack.top == 1) {
+                    if(currentRapper.value < i) {
+                        conditionStack.push(1);
+                    } else {
+                        conditionStack.push(-1);
+                    }
+    	    } else {
+    		conditionStack.push(-2);
+      	    }
         }
         def BOB_YA_HEAD(i:Int) = {
-  	    if(conditionStack.top == 1) {
-                if(currentRapper.value == i) {
-                    conditionStack.push(1);
-                } else {
-                    conditionStack.push(-1);
-                }
-	    } else {
-		conditionStack.push(-2);
-	    }
+      	    if(conditionStack.top == 1) {
+                    if(currentRapper.value == i) {
+                        conditionStack.push(1);
+                    } else {
+                        conditionStack.push(-1);
+                    }
+    	    } else {
+    		conditionStack.push(-2);
+    	    }
         }
         def WAVE_YA_HAND(r:Rapper) = {
-  	    if(conditionStack.top == 1) {
-                if(currentRapper.value == r.value) {
-                    conditionStack.push(1);
-                } else {
-                    conditionStack.push(-1);
-                }
-	    } else {
-		conditionStack.push(-2);
-	    }
+      	    if(conditionStack.top == 1) {
+                    if(currentRapper.value == r.value) {
+                        conditionStack.push(1);
+                    } else {
+                        conditionStack.push(-1);
+                    }
+    	    } else {
+    		conditionStack.push(-2);
+    	    }
         }
         def SHAKE_YA_BUTT(r:Rapper) = {
-  	    if(conditionStack.top == 1) {
-                if(currentRapper.value < r.value) {
-                    conditionStack.push(1);
-                } else {
-                    conditionStack.push(-1);
-                }
-	    } else {
-		conditionStack.push(-2);
-	    }
+      	    if(conditionStack.top == 1) {
+                    if(currentRapper.value < r.value) {
+                        conditionStack.push(1);
+                    } else {
+                        conditionStack.push(-1);
+                    }
+    	    } else {
+    		conditionStack.push(-2);
+    	    }
         }
         def RAISE_THA_ROOF(r:Rapper) = {
-  	    if(conditionStack.top == 1) {
-                if(currentRapper.value > r.value) {
-                    conditionStack.push(1);
-                } else {
-                    conditionStack.push(-1);
-                }
-	    } else {
-		conditionStack.push(-2);
-	    }
+      	    if(conditionStack.top == 1) {
+                    if(currentRapper.value > r.value) {
+                        conditionStack.push(1);
+                    } else {
+                        conditionStack.push(-1);
+                    }
+    	    } else {
+    		conditionStack.push(-2);
+    	    }
         }
     }
 

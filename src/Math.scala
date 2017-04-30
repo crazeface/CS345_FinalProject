@@ -1,3 +1,4 @@
+import scala.language.postfixOps;
 object Math extends RapBattle{
 
 	object DJKHALED extends Rapper{
