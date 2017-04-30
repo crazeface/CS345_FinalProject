@@ -1,9 +1,10 @@
 class RapBattle{	
 
-/*
-	import scala.collection.mutable.{HashMap, HashSet, Stack};
-	import scala.collection.immutable.{TreeMap};
 
+	import scala.collection.mutable.{Stack};
+
+	//import scala.collection.immutable.{TreeMap}; HashMap, HashSet,
+/*
 	// used for jump PCs
 	private var index = Tuple3(0,0,0)
 	// store all lines as Act->Scene->Line where line has all necessary data
@@ -18,23 +19,96 @@ class RapBattle{
 	private var curAct:Act = null;
 	private var curScene:Scene = null;
 */
-	
+	var conditionStack:Stack[Int] = new Stack[Int]
 	private var num=1;
 	private var currentRapper:Rapper = null;
-
+    var firstRapper = true;
 	// class MainFollowTrait{
 	// 	def apply(i:IClass):IClass = i
 	// }
 
+
+    //TODO add ConjunctionClass Return types for these functions
     class MathFunctionBuilder{
-    	def KEYS:MathFunctionBuilder = {currentRapper.value = currentRapper.value * 3; this}
-    	def ONE:MathFunctionBuilder = {currentRapper.value= currentRapper.value + 1; this}
-    	def apply(a:KeysClass):MathFunctionBuilder = {currentRapper.value = currentRapper.value * 3; this}
-    	def apply(o:OneClass):MathFunctionBuilder = {currentRapper.value = currentRapper.value + 1; this}
+        def ConjunctionClass:StartSentenceClass = {
+            new StartSentenceClass
+        }
+        // def KEYS(c: ConjunctionClass):StartSentenceClass = {
+        //     new StartSentenceClass
+        // }
+    	def KEYS:MathFunctionBuilder = {
+            if(conditionStack.top == 1){
+                currentRapper.value = scala.math.pow(currentRapper.value,2).toInt; 
+            }
+            this;
+            
+
+        }
+    	def ONE:MathFunctionBuilder = {
+            if(conditionStack.top == 1) {
+                currentRapper.value = currentRapper.value + 1; 
+            }
+            this;
+            
+
+        }
+        def NEG:MathFunctionBuilder = {
+            if(conditionStack.top == 1){
+                currentRapper.value = currentRapper.value - 1; 
+            }
+            this;
+            
+
+        }
+    	def apply(a:KeysClass):MathFunctionBuilder = {
+            if(conditionStack.top == 1){
+                currentRapper.value = scala.math.pow(currentRapper.value,2).toInt; 
+            }
+            this;
+            
+
+        }
+    	def apply(o:OneClass):MathFunctionBuilder = {
+            if(conditionStack.top == 1){
+                currentRapper.value = currentRapper.value + 1; 
+            }
+            this;
+            
+
+        }
+        def apply(n:NegClass):MathFunctionBuilder = {
+            if(conditionStack.top == 1){
+                currentRapper.value = currentRapper.value - 1; 
+            }
+            this;
+            
+
+        }   
+        def apply(c:ConjunctionClass):StartSentenceClass = {
+            new StartSentenceClass
+        }
     }
 
     class Builder{
+        def STACKS(c:ConjunctionClass) = {
+            new StartSentenceClass
+        }
+	    
         def STACKS:Unit = {}
+
+        def THE:TheClass = {
+            new TheClass
+        }
+
+        def A(m:MilClass) = {
+            if(conditionStack.top == 1){
+                currentRapper.value = currentRapper.value % 2;
+            }
+            new MilClass
+        }
+        def HOMIES:Unit = {}
+        def Gs:Unit = {}
+        def PROBLEMS:Unit = {}
     	def apply(g: TheClass):TheClass = g;
         def apply(m: MilClass):MilClass = m;
     }
@@ -42,22 +116,61 @@ class RapBattle{
     class TheClass extends MathFunctionBuilder{}
 
 	class IClass{
-		def GOT:Builder = {
-			new Builder
-		}
+        def apply(g: GotClass):Builder = {
+            new Builder;
+        }
+        def GOT(t: TheClass):TheClass = {
+            new TheClass
+        }
+        def HAVE(i: Int):Builder = {
+            if(conditionStack.top == 1){
+                currentRapper.value = i * currentRapper.value;
+            }
+            new Builder;
+        }
+        def GET(p: PaidClass):Unit = {
+            if(conditionStack.top == 1){
+                currentRapper.value = scala.io.StdIn.readInt;
+            }
+        }
+        def LIKE(d: DatClass):Unit = {
+            if(conditionStack.top == 1){
+                val r = scala.util.Random;
+                currentRapper.value = r.nextInt(currentRapper.value) + 1;            
+            }
+
+        }
+        def LOST(i: Int):Builder = {
+            if(conditionStack.top == 1){
+                currentRapper.value = currentRapper.value - i;
+            }
+            new Builder;
+        }
+        def PICKED_UP(i: Int):Builder = {
+            if(conditionStack.top == 1){
+                currentRapper.value = currentRapper.value + i;
+            }
+            new Builder;
+        }
         def GOT(i: Int):Builder = {
-            currentRapper.value = i * currentRapper.value;
+            if(conditionStack.top == 1){
+                currentRapper.value = currentRapper.value / i;
+            }
             new Builder;
         }
 	}
 
     class HalfClass {
         def A:Builder = {
+            if(conditionStack.top == 1){
+                currentRapper.value = currentRapper.value % 2;
+            }
             new Builder
         }
     }
 
 	class AnotherClass extends MathFunctionBuilder{}
+
 
     object I extends IClass{}
     object HALF extends HalfClass{}
@@ -65,34 +178,166 @@ class RapBattle{
     object KEYS extends KeysClass{}
     object ONE extends OneClass{}
     object ANOTHER extends AnotherClass{}
+    object NEG extends NegClass{}
     object SPIT extends SpitClass{}
     object STACKS extends StacksClass{}
     object MIL extends MilClass{}
-    object AND extends AndClass{}
+    object AND extends ConjunctionClass{}
+    object GOT extends GotClass{}
+    object EVERYBODY extends ConditionalsClass{}
+    object STRAIGHT extends ElseClass{}
+    object COMPTON extends ComptonClass{}
+    object BOTTLES extends EndIfClass{}
+    object MODELS extends ModelsClass{}
+    object PAID extends PaidClass{}
+    object DAT extends DatClass{}
 
-    class AndClass{
-        
-    }
+    class AndClass {}
+    class GotClass {}
+    class ComptonClass{}
+    class ModelsClass{}
+    class PaidClass{}
+    class DatClass{}
+
+
     class MilClass{
-        currentRapper.value = currentRapper.value/2;
+        def AND(h:HalfClass) = {
+            new Builder;
+        }
     }
 
     class SpitClass{
-        def STRING(s: String):Unit = {
-            println(s);
+        def VERSE(s: String):Unit = {
+            if(conditionStack.top == 1){
+                println(s);
+            }
         }
         def FIRE:Unit = {
-            println(currentRapper.name);
-            println(currentRapper.value);
+            if(conditionStack.top == 1){
+                println(currentRapper.value);
+            }
         }
     }
 
     class OneClass{}
 
+    class NegClass{}
+
     class KeysClass{}
 
-    class StacksClass{
-        
+    class StacksClass{}
+
+    class StartSentenceClass {
+        def apply(i: IClass):IClass = { // STACKS
+            new IClass
+        }
+        def I:IClass = { // YO
+            new IClass
+        }
+        def apply(s:SpitClass):SpitClass = {
+            new SpitClass
+        }
+        def apply(h:HalfClass):HalfClass = {
+            new HalfClass
+        }
+        def EVERYBODY:ConditionalsClass = {
+            new ConditionalsClass
+        }
+        def STRAIGHT:ElseClass = {
+            new ElseClass
+        }
+        def BOTTLES:EndIfClass = {
+            new EndIfClass
+        }
+
+    }
+
+    class ConditionalsClass{
+        def JUMP(i:Int) = {
+	    if(conditionStack.top == 1){
+                if(currentRapper.value > i) {
+                    conditionStack.push(1);
+                } else {
+                    conditionStack.push(-1);
+                }
+	    } else {
+		conditionStack.push(-2);
+   	    }
+        }
+        def SQUAT(i:Int) = {
+  	    if(conditionStack.top == 1) {
+                if(currentRapper.value < i) {
+                    conditionStack.push(1);
+                } else {
+                    conditionStack.push(-1);
+                }
+	    } else {
+		conditionStack.push(-2);
+  	    }
+        }
+        def BOB_YA_HEAD(i:Int) = {
+  	    if(conditionStack.top == 1) {
+                if(currentRapper.value == i) {
+                    conditionStack.push(1);
+                } else {
+                    conditionStack.push(-1);
+                }
+	    } else {
+		conditionStack.push(-2);
+	    }
+        }
+        def WAVE_YA_HAND(r:Rapper) = {
+  	    if(conditionStack.top == 1) {
+                if(currentRapper.value == r.value) {
+                    conditionStack.push(1);
+                } else {
+                    conditionStack.push(-1);
+                }
+	    } else {
+		conditionStack.push(-2);
+	    }
+        }
+        def SHAKE_YA_BUTT(r:Rapper) = {
+  	    if(conditionStack.top == 1) {
+                if(currentRapper.value < r.value) {
+                    conditionStack.push(1);
+                } else {
+                    conditionStack.push(-1);
+                }
+	    } else {
+		conditionStack.push(-2);
+	    }
+        }
+        def RAISE_THA_ROOF(r:Rapper) = {
+  	    if(conditionStack.top == 1) {
+                if(currentRapper.value > r.value) {
+                    conditionStack.push(1);
+                } else {
+                    conditionStack.push(-1);
+                }
+	    } else {
+		conditionStack.push(-2);
+	    }
+        }
+    }
+
+    class ConjunctionClass {
+        def apply(a:AndClass):StartSentenceClass = {
+            new StartSentenceClass
+        }
+    }
+
+    class ElseClass {
+        def OUTTA(c: ComptonClass):Unit = {
+            val topofstack:Int = conditionStack.pop;
+            conditionStack.push(topofstack * -1);
+        }
+    }
+
+    class EndIfClass {
+        def N(m: ModelsClass):Unit = {
+            conditionStack.pop;
+        }
     }
 
     class Rapper{
@@ -100,8 +345,13 @@ class RapBattle{
     	var value = 1;
         var conditional = false;
 
-    	def YO:Unit = {
-    		currentRapper = this;
+    	def YO:StartSentenceClass = {
+            if(firstRapper == true){
+                conditionStack.push(1); 
+                firstRapper = false;
+            }
+            currentRapper = this;
+            new StartSentenceClass
     	}
 
     }
