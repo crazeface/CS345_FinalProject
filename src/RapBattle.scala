@@ -1,31 +1,96 @@
+import scala.collection.mutable.{ HashMap, Stack};
+
+
 class RapBattle{	
 
-
-	import scala.collection.mutable.{Stack};
     
-	//import scala.collection.immutable.{TreeMap}; HashMap, HashSet,
-/*
-	// used for jump PCs
-	private var index = Tuple3(0,0,0)
-	// store all lines as Act->Scene->Line where line has all necessary data
-	private var stmts = new java.util.TreeMap[Int, java.util.TreeMap[Int, java.util.List[Execution]]]();
-
-	// used to keep track of characters on stage
-	private var curSpeaker:Character = null;
-	private var curListener:Character = null;
-	private var curCharacters = HashSet.empty[Character];
-
-	// used to keep track of what act and scene we are in during parsing
-	private var curAct:Act = null;
-	private var curScene:Scene = null;
-*/
 	var conditionStack:Stack[Int] = new Stack[Int]
+
+	//Used to store all rappers
+	var RapperTable = new HashMap[Int, Rapper];
+	var rapperIndex = 0;
+
 	private var num=1;
 	private var currentRapper:Rapper = null;
     var firstRapper = true;
-	// class MainFollowTrait{
-	// 	def apply(i:IClass):IClass = i
-	// }
+
+    //TODO change string to rap line
+    var lines = new HashMap[Int,RapLine];
+    var inWhile = false; 
+    var current = 1;
+
+    // Used to parse and evaluate in for loops
+    abstract sealed class RapLine	
+    case class LT(index: Int, compare: Int) extends RapLine //TODO skip everything until instance of else
+    case class Break() extends RapLine
+    case class Else(num: Int) extends RapLine
+    case class EndIf(num: Int) extends RapLine
+    case class End(num: Int) extends RapLine
+    case class Print(num: Int) extends RapLine
+    case class Sub(index: Int, num: Int) extends RapLine
+    
+
+    def gotoLine(line: Int) {
+	def GeneralIf(bool: Boolean) = {
+	    if(bool) {
+		gotoLine(line + 1);
+	    } else {
+		//false so skip until corresponding else 
+		var changeLine = line + 1
+		var count = 0; // for nested if else
+		while(!(lines(changeLine).isInstanceOf[Else]) && count == 0) {
+		    //skip all within if part
+		    if(lines(changeLine).isInstanceOf[LT]) {
+			count += 1;
+		    } else if(lines(changeLine).isInstanceOf[EndIf]) {
+			count -= 1;
+		    }
+		    changeLine = changeLine + 1;
+		}
+		// Dont want to reach Else part
+		gotoLine(changeLine + 1);
+	    }		
+        }
+
+	lines(line) match {
+	    case End(_) => {
+		gotoLine(lines.keys.toList.sorted.head);
+	    }
+	    case LT(index, compare) => {
+		GeneralIf(RapperTable(index).value < compare);
+	    }
+	    case Else(_) => {
+		//Only reaches else if first if is false
+		//So just need to skip until ifend
+		var changeLine = line + 1
+		var count = 0; //skip all if-elses in this else 
+		while(!lines(changeLine).isInstanceOf[EndIf] && count == 0) {
+		    if(lines(changeLine).isInstanceOf[LT]) {
+			count += 1;
+		    } else if(lines(changeLine).isInstanceOf[EndIf]) {
+			count -= 1;
+		    }
+		    changeLine = changeLine + 1;
+		} 
+		gotoLine(changeLine + 1);
+	    }
+	    case Break() => {
+	    }
+	    case Print(num: Int) => {
+		println(RapperTable(num).value);
+		gotoLine(line + 1);
+	    }
+	    case EndIf(_) => {
+		gotoLine(line + 1);
+	    }
+	    case Sub(index, num) => {
+		RapperTable(index).value = RapperTable(index).value - num;
+		gotoLine(line + 1);
+	    }
+
+
+	}
+    }
 
 
     //TODO add ConjunctionClass Return types for these functions
@@ -33,9 +98,6 @@ class RapBattle{
         def ConjunctionClass:StartSentenceClass = {
             new StartSentenceClass
         }
-        // def KEYS(c: ConjunctionClass):StartSentenceClass = {
-        //     new StartSentenceClass
-        // }
     	def KEYS:MathFunctionBuilder = {
             if(conditionStack.top == 1){
                 currentRapper.value = scala.math.pow(currentRapper.value,2).toInt; 
@@ -99,7 +161,7 @@ class RapBattle{
         def THE:TheClass = {
             new TheClass
         }
-
+        def MIL:Unit = {}
         def A(m:MilClass) = {
             if(conditionStack.top == 1){
                 currentRapper.value = currentRapper.value % 2;
@@ -109,7 +171,6 @@ class RapBattle{
         def HOMIES:Unit = {}
         def Gs:Unit = {}
         def PROBLEMS:Unit = {}
-        def DOCTORS:Unit = {}
     	def apply(g: TheClass):TheClass = g;
         def apply(m: MilClass):MilClass = m;
     }
@@ -143,7 +204,12 @@ class RapBattle{
         }
         def LOST(i: Int):Builder = {
             if(conditionStack.top == 1){
-                currentRapper.value = currentRapper.value - i;
+		if(inWhile) {
+		    lines(current) = Sub(currentRapper.index, i);
+		    current += 1;
+		} else {
+                    currentRapper.value = currentRapper.value - i;
+		}
             }
             new Builder;
         }
@@ -159,12 +225,7 @@ class RapBattle{
             }
             new Builder;
         }
-        def NEED(i: Int):Builder = {
-            if(conditionStack.top == 1){
-                currentRapper.value = i;
-            }
-            new Builder;
-        }
+
 	}
 
     class HalfClass {
@@ -198,13 +259,34 @@ class RapBattle{
     object MODELS extends ModelsClass{}
     object PAID extends PaidClass{}
     object DAT extends DatClass{}
+    object OUT extends StartSentenceClass{}
+    object TWENTYFIVE extends TFClass{}
+    object FOR extends StartSentenceClass{}
+    object PEACE extends StartSentenceClass{}
+    object MY extends StartSentenceClass{}
 
+
+    ///////////////////////////////////// EMPTY CLASSES///////////////////////////  ` 
     class AndClass {}
     class GotClass {}
     class ComptonClass{}
     class ModelsClass{}
     class PaidClass{}
     class DatClass{}
+    class OneClass{}
+    class NegClass{}
+    class KeysClass{}
+    class StacksClass{}
+    class OutClass{}
+
+    class TFClass{
+        def SITTIN_ON(i: Int):Builder = {
+            if(conditionStack.top == 1){
+                currentRapper.value = i;
+            }
+            new Builder;
+        }
+    }
 
 
     class MilClass{
@@ -220,19 +302,18 @@ class RapBattle{
             }
         }
         def FIRE:Unit = {
+	  if(inWhile && conditionStack.top == 1) {
+	    lines(current) = Print(currentRapper.index);
+	    current += 1;
+	  } else {
             if(conditionStack.top == 1){
                 println(currentRapper.value);
             }
+	  }
         }
     }
 
-    class OneClass{}
 
-    class NegClass{}
-
-    class KeysClass{}
-
-    class StacksClass{}
 
     class StartSentenceClass {
         def apply(i: IClass):IClass = { // STACKS
@@ -256,74 +337,100 @@ class RapBattle{
         def BOTTLES:EndIfClass = {
             new EndIfClass
         }
+        def SHIZZLE = {
+	    if(conditionStack.top == 1) {
+              inWhile = true;
+	    }
+        }
+        def NIZZLE = {
+            if(!inWhile && conditionStack.top == 1) {
+		println("NON MATCHING WHILE LOOPS");
+                //ERROR
+            }
+	    if(conditionStack.top == 1){
+                inWhile = false;
+		lines(current) = End(current);
+		gotoLine(1);
+	    }
+        }
+        def OUT = {
+	    lines(current) = Break();
+	    current += 1;
+            // TODO
+        }
 
     }
 
     class ConditionalsClass{
         def JUMP(i:Int) = {
     	    if(conditionStack.top == 1){
-                    if(currentRapper.value > i) {
-                        conditionStack.push(1);
-                    } else {
-                        conditionStack.push(-1);
-                    }
+                if(currentRapper.value > i) {
+                    conditionStack.push(1);
+                } else {
+                    conditionStack.push(-1);
+                }
     	    } else {
-    		conditionStack.push(-2);
+    		    conditionStack.push(-2);
    	        }
         }
         def SQUAT(i:Int) = {
+	  if(inWhile && conditionStack.top == 1) { 
+	    lines(current) = LT(currentRapper.index, i);
+	    current += 1;
+	  } else {
       	    if(conditionStack.top == 1) {
-                    if(currentRapper.value < i) {
-                        conditionStack.push(1);
-                    } else {
-                        conditionStack.push(-1);
-                    }
+                if(currentRapper.value < i) {
+                    conditionStack.push(1);
+                } else {
+                    conditionStack.push(-1);
+                }
     	    } else {
-    		conditionStack.push(-2);
+    		    conditionStack.push(-2);
       	    }
+	  }
         }
         def BOB_YA_HEAD(i:Int) = {
       	    if(conditionStack.top == 1) {
-                    if(currentRapper.value == i) {
-                        conditionStack.push(1);
-                    } else {
-                        conditionStack.push(-1);
-                    }
+                if(currentRapper.value == i) {
+                    conditionStack.push(1);
+                } else {
+                    conditionStack.push(-1);
+                }
     	    } else {
-    		conditionStack.push(-2);
+    		    conditionStack.push(-2);
     	    }
         }
         def WAVE_YA_HAND(r:Rapper) = {
       	    if(conditionStack.top == 1) {
-                    if(currentRapper.value == r.value) {
-                        conditionStack.push(1);
-                    } else {
-                        conditionStack.push(-1);
-                    }
+                if(currentRapper.value == r.value) {
+                    conditionStack.push(1);
+                } else {
+                    conditionStack.push(-1);
+                }
     	    } else {
-    		conditionStack.push(-2);
+    		    conditionStack.push(-2);
     	    }
         }
         def SHAKE_YA_BUTT(r:Rapper) = {
       	    if(conditionStack.top == 1) {
-                    if(currentRapper.value < r.value) {
-                        conditionStack.push(1);
-                    } else {
-                        conditionStack.push(-1);
-                    }
+                if(currentRapper.value < r.value) {
+                    conditionStack.push(1);
+                } else {
+                    conditionStack.push(-1);
+                }
     	    } else {
-    		conditionStack.push(-2);
+    		    conditionStack.push(-2);
     	    }
         }
         def RAISE_THA_ROOF(r:Rapper) = {
       	    if(conditionStack.top == 1) {
-                    if(currentRapper.value > r.value) {
-                        conditionStack.push(1);
-                    } else {
-                        conditionStack.push(-1);
-                    }
+                if(currentRapper.value > r.value) {
+                    conditionStack.push(1);
+                } else {
+                    conditionStack.push(-1);
+                }
     	    } else {
-    		conditionStack.push(-2);
+    		    conditionStack.push(-2);
     	    }
         }
     }
@@ -336,14 +443,24 @@ class RapBattle{
 
     class ElseClass {
         def OUTTA(c: ComptonClass):Unit = {
+	  if(inWhile && conditionStack.top == 1) {
+	    lines(current) = Else(current);
+	    current += 1;
+	  } else {
             val topofstack:Int = conditionStack.pop;
             conditionStack.push(topofstack * -1);
+	  }
         }
     }
 
     class EndIfClass {
         def N(m: ModelsClass):Unit = {
-            conditionStack.pop;
+	    if(inWhile && conditionStack.top == 1) {
+	      lines(current) = EndIf(current);
+	      current += 1;
+	    } else {
+              conditionStack.pop;
+	    }
         }
     }
 
@@ -351,12 +468,18 @@ class RapBattle{
     	var name = "";
     	var value = 1;
         var conditional = false;
+	var index = -1;
 
     	def YO:StartSentenceClass = {
             if(firstRapper == true){
                 conditionStack.push(1); 
                 firstRapper = false;
             }
+	    if(index == -1){
+		RapperTable(rapperIndex) = this;
+		index = rapperIndex;
+		rapperIndex += rapperIndex;
+	    }
             currentRapper = this;
             new StartSentenceClass
     	}
