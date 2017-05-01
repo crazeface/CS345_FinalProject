@@ -10,17 +10,27 @@ object test extends RapBattle{
 	}
 
 	def main(args: Array[String]): Unit = {
-	    SNOOPDOG YO;
-	    TWENTYFIVE SITTIN_ON 10 MIL;
-	    FOR SHIZZLE;
-		EVERYBODY SQUAT 6;
-		    PEACE OUT;
-		STRAIGHT OUTTA COMPTON;
-		    SPIT FIRE;
-		    I LOST 1 HOMIES;
-		BOTTLES N MODELS;
-	    MY NIZZLE;
-	    SPIT VERSE "OUTTIE"; 
 
+	    SNOOPDOG YO;
+	    SPIT VERSE "Gimme a number for collatz fam";
+	    I GET PAID;
+	    FO SHIZZLE;
+		SPIT FIRE;
+			EVERYBODY SQUAT 2;
+			    PEACE OUT;
+			STRAIGHT OUTTA COMPTON;
+			    HALF A MIL;
+					I GOT 2 PROBLEMS;
+			    STRAIGHT OUTTA COMPTON;
+					I HAVE 3 STACKS;
+					ANOTHER ONE;
+			    BOTTLES N MODELS;
+			BOTTLES N MODELS;
+			DJKHALED YO;
+			ANOTHER ONE;
+	    MY NIZZLE;
+	    SPIT VERSE "It took this many turns to get to 1: "
+	    DJKHALED YO;
+	    SPIT FIRE;
 	}
 }
